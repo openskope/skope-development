@@ -1,7 +1,7 @@
 version: "3"
 services:
   webapp:
-    build: ./web-app/local
+    build: ./web-app/development
     image: openskope:web-app-runtime
     container_name: openskope-web-app-runtime
     volumes:
