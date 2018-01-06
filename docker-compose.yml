@@ -1,0 +1,28 @@
+version: "3"
+services:
+  webapp:
+    build: ./web-app/local
+    image: openskope:web-app-runtime
+    container_name: openskope-web-app-runtime
+    volumes:
+      - ./web-app/meteor-app:/usr/share/meteor-app
+      - ./configs/web-app-settings.json:/usr/share/meteor-app-settings.json
+    env_file:
+      - ./configs/web-app.env
+    ports:
+      - "3000:3000"
+    networks:
+      - openskope-dev
+    depends_on:
+      - elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
+    container_name: openskope-elasticsearch
+    volumes:
+      - ./runtime-data/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - openskope-dev
+networks:
+  openskope-dev:
+    driver: bridge

@@ -1,0 +1,8 @@
+{
+    "public": {
+        "elasticEndpoint": "elastic"
+    },
+    "server": {
+        "elasticEndpoint": "http://elasticsearch:9200"
+    }
+}
