@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compose: Up",
+            "type": "shell",
+            "command": "docker-compose up"
+        },
+        {
+            "label": "Compose: Down",
+            "type": "shell",
+            "command": "docker-compose down"
+        },
+        {
+            "label": "Compose: Rebuild",
+            "type": "shell",
+            "command": "docker-compose build --force-rm --no-cache",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Shell: Web App",
+            "type": "shell",
+            "command": "docker-compose exec webapp sh -c 'bash'"
+        }
+    ]
+}
