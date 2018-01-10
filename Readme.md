@@ -2,6 +2,14 @@ The purpose of this repo is to have a single repo to checkout the entire platfor
 
 This repo is not for deploying the platform.
 
+## Checkout the code
+
+The submodules should all be using SSH so please checkout the root repo with SSH. You would need to have your SSH keys added to Github.
+
+```
+git clone --recursive git@github.com:openskope/skope-development.git
+```
+
 ## Directories
 
 - `configs` stores all the config files used by the containers. The settings could put the services/apps into verbose mode, for example, for development purposes.
