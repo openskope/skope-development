@@ -10,12 +10,15 @@ The submodules should all be using SSH so please checkout the root repo with SSH
 git clone --recursive git@github.com:openskope/skope-development.git
 ```
 
+*If you see a password prompt during checkout of `https://xhong@bitbucket.org/cybergis/web-gis-components.git`, you can safely ignore it (by failing the authentication). It's not needed unless you are developing that specific library.*
+
 ## Run the system
 
 ```
 docker-compose up
 ```
 
+To-do
 - Local test data for ElasticSearch needs to be added.
 - Local test data for GeoServer needs to be added.
 
