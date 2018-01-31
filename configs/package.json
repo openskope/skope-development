@@ -1,0 +1,30 @@
+{
+  "name": "skope-dev-config-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "es-index-load": "ts-node ./elasticsearch-scripts/loadIndices.ts",
+    "es-index-list": "ts-node ./elasticsearch-scripts/listIndices.ts",
+    "es-index-drop": "ts-node ./elasticsearch-scripts/deleteIndices.ts",
+    "es-generate": "ts-node ./elasticsearch-scripts/generateMockData.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xingchen Hong",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.19",
+    "@types/faker": "^4.1.2",
+    "@types/fs-extra": "^5.0.0",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^9.4.0",
+    "elasticsearch": "^14.0.0",
+    "faker": "^4.1.0",
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
+    "moment": "^2.20.1",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2",
+    "uuid": "^3.2.1"
+  }
+}
