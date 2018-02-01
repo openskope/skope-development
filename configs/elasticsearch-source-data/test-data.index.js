@@ -91,16 +91,8 @@ module.exports = {
               "type": "text"
             },
             "period":  {
-              "properties": {
-                "gte": {
-                  "type": "date",
-                  "format": "yyyy-MM-dd"
-                },
-                "lte": {
-                  "type": "date",
-                  "format": "yyyy-MM-dd"
-                }
-              }
+              "type": "date_range",
+              "format": "strict_year||strict_year_month||strict_year_month_day||epoch_millis"
             }
           }
         },
