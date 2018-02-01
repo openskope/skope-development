@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as LocalTypes from './types';
+import deleteIndices from './deleteIndices';
 import getConnection from './getConnection';
 const client = getConnection();
 
@@ -85,6 +86,7 @@ const loadIndices = async () : Promise<boolean> => {
       const majorIndexType : string = indexTypes[0];
 
       try {
+        await deleteIndices([indexName]);
         await client.indices.create({
           waitForActiveShards: '1',
           updateAllTypes: true,
