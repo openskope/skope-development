@@ -45,8 +45,17 @@ const getMockDataForType = (
       return faker.lorem.word();
     case 'text':
       return faker.lorem.words();
-    case 'float':
+    case 'byte':
+      return faker.random.number(127);
+    case 'short':
+      return faker.random.number(32767);
+    case 'integer': // Fall-through
+    case 'long': // Fall-through
+    case 'double': // Fall-through
+    case 'float': // Fall-through
       return faker.random.number();
+    case 'boolean':
+      return faker.random.boolean();
     case 'date':
       const date : Date = faker.date.past();
 
@@ -138,6 +147,31 @@ const getMockDataForProperty = (
         faker.lorem.word(),
         faker.lorem.word(),
       ];
+    case fullPropPath === 'timespan':
+      const endDate : Date = faker.date.past();
+      const startDate : Date = faker.date.past(3, endDate);
+
+      // Format should be "strict_year||strict_year_month||strict_year_month_day||epoch_millis".
+      const formatters = {
+        year : (d) => moment(d).format('YYYY'),
+        month: (d) => moment(d).format('YYYY-MM'),
+        date: (d) => moment(d).format('YYYY-MM-DD'),
+        millisecond: (d) => moment(d).valueOf(),
+      };
+      const resolutions = Object.keys(formatters);
+
+      const chosenResolution : string = faker.random.arrayElement(resolutions);
+      const chosenFormater : Function = formatters[chosenResolution];
+
+      return {
+        name: faker.lorem.word(),
+        keywords: faker.lorem.word(),
+        resolution: chosenResolution,
+        period: {
+          gte: chosenFormater(startDate),
+          lte: chosenFormater(endDate),
+        },
+      };
     case fullPropPath === 'revised': // Fall-through
     case fullPropPath === 'publisher': // Fall-through
     case fullPropPath === 'variables': // Fall-through
