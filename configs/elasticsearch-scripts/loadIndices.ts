@@ -87,6 +87,11 @@ const loadIndices = async () : Promise<boolean> => {
 
       try {
         await deleteIndices([indexName]);
+      } catch (error) {
+        //! Ignore errors during deleting.
+      }
+
+      try {
         await client.indices.create({
           waitForActiveShards: '1',
           updateAllTypes: true,
