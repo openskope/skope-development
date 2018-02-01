@@ -1,7 +1,9 @@
 import getConnection from './getConnection';
 const client = getConnection();
 
-const deleteIndices = async () : Promise<boolean> => {
+const deleteIndices = async (
+  indices : Array<string> = null
+) : Promise<boolean> => {
   try {
     await client.ping({
       requestTimeout: 30000,
@@ -11,9 +13,11 @@ const deleteIndices = async () : Promise<boolean> => {
     return null;
   }
 
+  const allIndices = !(indices && indices.length > 0);
+
   try {
     await client.indices.delete({
-      index: '*',
+      index: allIndices ? '*' : indices,
     });
   } catch (error) {
     console.error(error.message);
@@ -21,7 +25,7 @@ const deleteIndices = async () : Promise<boolean> => {
   }
 
   await client.indices.refresh({
-    index: '',
+    index: allIndices ? '' : indices,
   });
 
   return true;
