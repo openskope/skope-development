@@ -134,7 +134,7 @@ const getMockDataForType = (
       ]);
 
       const geometry = {
-        type: "polygon",
+        type: "Polygon",
         coordinates: [
           [],
         ]
