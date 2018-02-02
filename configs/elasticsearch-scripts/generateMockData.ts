@@ -105,7 +105,7 @@ const getMockDataForType = (
        * @param {o=Object} options
        * @param {Array.<number>} options.origin
        * @param {number} options.direction - Radian between 0 and 2Pi.
-       * @param {number} options.distance
+       * @param {Array.<number>} options.distance
        */
       const generatePointNear = ({
         origin,
@@ -116,7 +116,7 @@ const getMockDataForType = (
           return x;
         }
 
-        const offset = faker.random.number(precision) / precision * distance;
+        const offset = faker.random.number(precision) / precision * distance[index];
 
         const newX = index === 0
           ? x + Math.cos(direction) * offset
@@ -124,14 +124,6 @@ const getMockDataForType = (
 
         return parseFloat(newX.toFixed(precision.toFixed(0).length + 1));
       });
-
-      /**
-       * @param {[number, number]} point
-       */
-      const boundPoint = (point) => ([
-        point[0] % 180,
-        point[1] % 80,
-      ]);
 
       const geometry = {
         type: "Polygon",
@@ -141,12 +133,18 @@ const getMockDataForType = (
       };
 
       const centerPoint = generatePointNear({
-        origin: [0, 0],
+        // Approx. U.S. center.
+        origin: [
+          -99.931640625,
+          40.3130432088809
+        ],
         direction: faker.random.number(precision) / precision * 2 * Math.PI,
-        distance: 90,
+        // Approx. from center to U.S. border.
+        distance: [
+          20,
+          10,
+        ],
       });
-      // Correct the magnitude of the first axis.
-      centerPoint[0] = centerPoint[0] * 2;
 
       const coordGroup = geometry.coordinates[0];
 
@@ -154,10 +152,11 @@ const getMockDataForType = (
         let newPoint = generatePointNear({
           origin: centerPoint,
           direction: 2 * Math.PI / vertexCount * i,
-          distance: 5,
+          distance: [
+            5,
+            3,
+          ],
         });
-
-        newPoint = boundPoint(newPoint);
 
         coordGroup.push(newPoint);
       }
