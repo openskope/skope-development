@@ -75,7 +75,7 @@ module.exports = {
               "type": "text"
             },
             "geometry": {
-              "type": "text"
+              "type": "geo_shape"
             }
           }
         },

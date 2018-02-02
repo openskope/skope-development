@@ -94,6 +94,78 @@ const getMockDataForType = (
       }, {});
 
       return newDoc;
+    case 'geo_shape':
+      // Only generate polygons for now.
+      // Generated path can not cross itself.
+
+      const vertexCount = 3 + faker.random.number(3);
+      const precision = 100000;
+
+      /**
+       * @param {o=Object} options
+       * @param {Array.<number>} options.origin
+       * @param {number} options.direction - Radian between 0 and 2Pi.
+       * @param {number} options.distance
+       */
+      const generatePointNear = ({
+        origin,
+        direction,
+        distance,
+      }) => origin.map((x, index) => {
+        if (index > 1) {
+          return x;
+        }
+
+        const offset = faker.random.number(precision) / precision * distance;
+
+        const newX = index === 0
+          ? x + Math.cos(direction) * offset
+          : x + Math.sin(direction) * offset;
+
+        return parseFloat(newX.toFixed(precision.toFixed(0).length + 1));
+      });
+
+      /**
+       * @param {[number, number]} point
+       */
+      const boundPoint = (point) => ([
+        point[0] % 180,
+        point[1] % 80,
+      ]);
+
+      const geometry = {
+        type: "polygon",
+        coordinates: [
+          [],
+        ]
+      };
+
+      const centerPoint = generatePointNear({
+        origin: [0, 0],
+        direction: faker.random.number(precision) / precision * 2 * Math.PI,
+        distance: 90,
+      });
+      // Correct the magnitude of the first axis.
+      centerPoint[0] = centerPoint[0] * 2;
+
+      const coordGroup = geometry.coordinates[0];
+
+      for (let i = 0; i < vertexCount; i += 1) {
+        let newPoint = generatePointNear({
+          origin: centerPoint,
+          direction: 2 * Math.PI / vertexCount * i,
+          distance: 5,
+        });
+
+        newPoint = boundPoint(newPoint);
+
+        coordGroup.push(newPoint);
+      }
+
+      // End point must be the start point.
+      coordGroup.push(coordGroup[0]);
+
+      return geometry;
     default:
       console.warn(`Unknown type: ${propType}.`);
       return null;
@@ -106,21 +178,6 @@ const getMockDataForProperty = (
   propDef : any,
 ) : any => {
   switch (true) {
-    case propName === 'version':
-      return faker.system.semver();
-    case propName === 'title':
-      return faker.lorem.words();
-    case propName === 'description':
-      return faker.lorem.paragraph();
-    case propName === 'url':
-      return faker.internet.url();
-    case propName === 'keywords':
-      return [
-        faker.lorem.word(),
-        faker.lorem.word(),
-        faker.lorem.word(),
-        faker.lorem.word(),
-      ];
     case fullPropPath === 'skopeid':
       return faker.random.uuid();
     case fullPropPath === 'type':
@@ -172,6 +229,23 @@ const getMockDataForProperty = (
           lte: chosenFormater(endDate),
         },
       };
+    case propName === 'version':
+      return faker.system.semver();
+    case propName === 'title':
+      return faker.lorem.words();
+    case propName === 'description':
+      return faker.lorem.paragraph();
+    case propName === 'url':
+      return faker.internet.url();
+    case propName === 'keywords':
+      return [
+        faker.lorem.word(),
+        faker.lorem.word(),
+        faker.lorem.word(),
+        faker.lorem.word(),
+      ];
+    case propName === 'markdown':
+      return faker.lorem.paragraphs();
     case fullPropPath === 'revised': // Fall-through
     case fullPropPath === 'publisher': // Fall-through
     case fullPropPath === 'variables': // Fall-through
