@@ -205,6 +205,15 @@ const getMockDataForProperty = (
         faker.lorem.word(),
         faker.lorem.word(),
       ];
+    case fullPropPath === 'overlays.type':
+      return 'wms';
+    case fullPropPath === 'overlays.styles':
+      return [
+        faker.lorem.word(),
+        faker.lorem.word(),
+        faker.lorem.word(),
+        faker.lorem.word(),
+      ];
     case fullPropPath === 'region.extents':
       // Do not define.
       return;
