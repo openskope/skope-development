@@ -181,7 +181,7 @@ const getMockDataForProperty = (
       return faker.random.uuid();
     case fullPropPath === 'type':
       return 'dataset';
-    case fullPropPath === 'descriptionMD':
+    case fullPropPath === 'description':
       return faker.lorem.paragraphs();
     case fullPropPath === 'investigators':
       return [
