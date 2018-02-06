@@ -19,6 +19,37 @@ const convertEsDateFormat2MomentFormat = (
   return esDateFormat;
 };
 
+const pointNearUsCenter = [
+  -99.931640625,
+  40.3130432088809,
+];
+
+const coordPrecision = 100000;
+
+/**
+ * @param {o=Object} options
+ * @param {Array.<number>} options.origin
+ * @param {number} options.direction - Radian between 0 and 2Pi.
+ * @param {Array.<number>} options.distance
+ */
+const generatePointNear = ({
+  origin,
+  direction,
+  distance,
+}) => origin.map((x, index) => {
+  if (index > 1) {
+    return x;
+  }
+
+  const offset = faker.random.number(coordPrecision) / coordPrecision * distance[index];
+
+  const newX = index === 0
+    ? x + Math.cos(direction) * offset
+    : x + Math.sin(direction) * offset;
+
+  return parseFloat(newX.toFixed(coordPrecision.toFixed(0).length + 1));
+});
+
 const getPropertyType = (
   propDef : LocalTypes.PropertyDefinition,
 ) : string => {
@@ -99,31 +130,6 @@ const getMockDataForType = (
       // Generated path can not cross itself.
 
       const vertexCount = 3 + faker.random.number(3);
-      const precision = 100000;
-
-      /**
-       * @param {o=Object} options
-       * @param {Array.<number>} options.origin
-       * @param {number} options.direction - Radian between 0 and 2Pi.
-       * @param {Array.<number>} options.distance
-       */
-      const generatePointNear = ({
-        origin,
-        direction,
-        distance,
-      }) => origin.map((x, index) => {
-        if (index > 1) {
-          return x;
-        }
-
-        const offset = faker.random.number(precision) / precision * distance[index];
-
-        const newX = index === 0
-          ? x + Math.cos(direction) * offset
-          : x + Math.sin(direction) * offset;
-
-        return parseFloat(newX.toFixed(precision.toFixed(0).length + 1));
-      });
 
       const geometry = {
         type: "Polygon",
@@ -133,12 +139,8 @@ const getMockDataForType = (
       };
 
       const centerPoint = generatePointNear({
-        // Approx. U.S. center.
-        origin: [
-          -99.931640625,
-          40.3130432088809
-        ],
-        direction: faker.random.number(precision) / precision * 2 * Math.PI,
+        origin: pointNearUsCenter,
+        direction: faker.random.number(coordPrecision) / coordPrecision * 2 * Math.PI,
         // Approx. from center to U.S. border.
         distance: [
           20,
@@ -203,6 +205,9 @@ const getMockDataForProperty = (
         faker.lorem.word(),
         faker.lorem.word(),
       ];
+    case fullPropPath === 'region.extents':
+      // Do not define.
+      return;
     case fullPropPath === 'timespan':
       const endDate : Date = faker.date.past();
       const startDate : Date = faker.date.past(3, endDate);

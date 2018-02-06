@@ -5,35 +5,36 @@ module.exports = {
         "skopeid": {
           "type": "keyword"
         },
+        "workspace": {
+          "type": "keyword"
+        },
         "type": {
           "type": "keyword"
         },
         "title": {
           "type": "text"
         },
-        "descriptionMD": {
+        "description": {
           "type": "text"
         },
         "investigators": {
-          "type": "text"
-        },
-        "version": {
-          "type": "text"
+          "type": "keyword"
         },
         "revised": { 
-          "type": "date",
-          "format": "yyyy-MM-dd hh:mm"
+          "type": "date"
         },
         "status": {
           "type": "keyword"
         },
         "publisher": {
           "properties": {
-            "name": {
-              "type": "text"
-            },
-            "nickname": {
-              "type": "keyword"
+            "name": { 
+              "type": "text",
+              "fields": { 
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
             "url": {
               "type": "keyword"
@@ -47,10 +48,12 @@ module.exports = {
           "type": "nested",
           "properties": {
             "name": {
-              "type": "text"
-            },
-            "keywords": {
-              "type": "keyword"
+              "type": "text",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
             "url": {
               "type": "keyword"
@@ -63,16 +66,18 @@ module.exports = {
         "region": {
           "properties": {
             "name": {
-              "type": "text"
-            },
-            "keywords": {
-              "type": "keyword"
+              "type": "text",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
             "extents": {
-              "type": "text"
+              "type": "float"
             },
             "resolution": {
-              "type": "text"
+              "type": "keyword"
             },
             "geometry": {
               "type": "geo_shape"
@@ -82,13 +87,15 @@ module.exports = {
         "timespan": {
           "properties": {
             "name": {
-              "type": "text"
-            },
-            "keywords": {
-              "type": "keyword"
+              "type": "text",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
             "resolution": {
-              "type": "text"
+              "type": "keyword"
             },
             "period":  {
               "type": "date_range",
@@ -104,7 +111,7 @@ module.exports = {
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -120,7 +127,7 @@ module.exports = {
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -136,7 +143,7 @@ module.exports = {
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -147,8 +154,13 @@ module.exports = {
         "overlays": {
           "type": "nested",
           "properties": {
-            "name": {
-              "type": "text"
+            "name": { 
+              "type": "text",
+              "fields": { 
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
             "description": {
               "type": "text"
@@ -175,13 +187,13 @@ module.exports = {
             "markdown": {
               "type": "text"
             },
-            "capabilities": {
+            "access": {
               "type": "keyword"
             },
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -192,17 +204,25 @@ module.exports = {
         "downloads": {
           "type": "nested",
           "properties": {
-            "name": {
-              "type": "text"
+            "name": { 
+              "type": "text",
+              "fields": { 
+                "raw": {
+                  "type": "keyword"
+                }
+              }
             },
-            "description": {
-              "type": "text"
+            "size": {
+              "type": "long"
+            },
+            "format": {
+              "type": "keyword"
             },
             "url": {
               "type": "keyword"
             },
-            "type": {
-              "type": "keyword"
+            "description": {
+              "type": "text"
             }
           }
         },
@@ -211,13 +231,10 @@ module.exports = {
             "markdown": {
               "type": "text"
             },
-            "capabilities": {
-              "type": "keyword"
-            },
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -228,14 +245,17 @@ module.exports = {
         "analytics": {
           "type": "nested",
           "properties": {
-            "name": {
-              "type": "text"
-            },
-            "description": {
-              "type": "text"
+            "name": { 
+              "type": "text",
+              "fields": { 
+                "raw": { "type": "keyword" }
+              }
             },
             "url": {
               "type": "keyword"
+            },
+            "description": {
+              "type": "text"
             }
           }
         },
@@ -244,13 +264,10 @@ module.exports = {
             "markdown": {
               "type": "text"
             },
-            "capabilities": {
-              "type": "keyword"
-            },
             "url": {
               "type": "keyword"
             },
-            "anchor": {
+            "link": {
               "type": "text"
             },
             "description": {
@@ -260,17 +277,22 @@ module.exports = {
         },
         "model": {
           "properties": {
-            "title": {
+            "type": {
               "type": "keyword"
             },
-            "nickname": {
+            "name": { 
+              "type": "text",
+              "fields": { 
+                "raw": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "url": {
               "type": "keyword"
             },
-            "version": {
-              "type": "keyword"
-            },
-            "capabilities": {
-              "type": "keyword"
+            "description": {
+              "type": "text"
             }
           }
         }
