@@ -205,6 +205,10 @@ const getMockDataForProperty = (
         faker.lorem.word(),
         faker.lorem.word(),
       ];
+    case fullPropPath === 'overlays.min':
+      return faker.random.number(100);
+    case fullPropPath === 'overlays.max':
+      return faker.random.number(1000) + 100;
     case fullPropPath === 'overlays.type':
       return 'wms';
     case fullPropPath === 'overlays.styles':
