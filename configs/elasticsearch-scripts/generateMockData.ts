@@ -50,6 +50,10 @@ const generatePointNear = ({
   return parseFloat(newX.toFixed(coordPrecision.toFixed(0).length + 1));
 });
 
+/**
+ * Get explicit ElasticSearch property type that may be implicit in data.
+ * @param propDef
+ */
 const getPropertyType = (
   propDef : LocalTypes.PropertyDefinition,
 ) : string => {
@@ -64,6 +68,12 @@ const getPropertyType = (
   return 'keyword';
 };
 
+/**
+ * Generate mock data based on property type.
+ * @param propDef
+ * @param propName
+ * @param fullPropPath
+ */
 const getMockDataForType = (
   propDef : LocalTypes.PropertyDefinition,
   propName : string,
@@ -173,6 +183,12 @@ const getMockDataForType = (
   }
 };
 
+/**
+ * Generate mock data for specific properties (detected based on object path).
+ * @param propName
+ * @param fullPropPath
+ * @param propDef
+ */
 const getMockDataForProperty = (
   propName : string,
   fullPropPath : string,
@@ -275,6 +291,10 @@ const getMockDataForProperty = (
   }
 };
 
+/**
+ * Generate one mock data document.
+ * @param typeDef - Index mappings.
+ */
 const generateSingleMockData = (
   typeDef : LocalTypes.PropertyDefinition,
 ) : Object => {
@@ -292,6 +312,12 @@ const generateSingleMockData = (
   return newDoc;
 };
 
+/**
+ * Generate given amount of mock data documents for the index.
+ * @param indexName - Name of the index.
+ * @param typeDef - Index mappings.
+ * @param count - Number of documents to generate.
+ */
 const generateMockDataForIndex = async (
   indexName : string,
   typeDef : LocalTypes.PropertyDefinition,
@@ -315,6 +341,10 @@ const generateMockDataForIndex = async (
   return true;
 };
 
+/**
+ * Generate mock data documents for all indices.
+ * @param count - Number of documents to generate for each index.
+ */
 const generateMockData = async (
   count : number = 100,
 ) : Promise<boolean> => {
