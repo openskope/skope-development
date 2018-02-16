@@ -26,6 +26,19 @@ const pointNearUsCenter = [
 
 const coordPrecision = 100000;
 
+const variableOptions = [
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+  faker.lorem.word(),
+];
+
 /**
  * @param {o=Object} options
  * @param {Array.<number>} options.origin
@@ -221,6 +234,8 @@ const getMockDataForProperty = (
         faker.lorem.word(),
         faker.lorem.word(),
       ];
+    case fullPropPath === 'variables.name':
+      return faker.random.arrayElement(variableOptions);
     case fullPropPath === 'overlays.min':
       return faker.random.number(100);
     case fullPropPath === 'overlays.max':
