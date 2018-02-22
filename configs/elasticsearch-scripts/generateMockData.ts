@@ -261,7 +261,7 @@ const getMockDataForProperty = (
         year : (d) => moment(d).format('YYYY'),
         month: (d) => moment(d).format('YYYY-MM'),
         date: (d) => moment(d).format('YYYY-MM-DD'),
-        millisecond: (d) => moment(d).valueOf(),
+        // millisecond: (d) => moment(d).valueOf(),
       };
       const resolutions = Object.keys(formatters);
 
