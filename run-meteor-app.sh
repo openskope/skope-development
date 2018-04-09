@@ -8,7 +8,9 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_DIR="${DIR}/web-app/meteor-app"
 
+set -a
 source "${DIR}/configs/web-app.env"
+set +a
 
 cd "$APP_DIR"
 meteor npm install
