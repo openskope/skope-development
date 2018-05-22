@@ -13,5 +13,6 @@ source "${DIR}/configs/web-app.env"
 set +a
 
 cd "$APP_DIR"
+export BUILD_GIT_COMMIT=$(git rev-parse --verify HEAD)
 meteor npm install
 meteor run --settings "${DIR}/configs/web-app-settings.json"
