@@ -1,5 +1,8 @@
 {
     "public": {
+        "showBetaSign": true,
+        "contactEmail": "kintigh@asu.edu",
+        "userGuideUrl": "http://www.openskope.org/skope-users-guide",
         "searchpage": {
             "resultsPerPage": 10,
             "logSearchKitQueries": false,
