@@ -13,6 +13,6 @@
         "elasticEndpoint": "elastic"
     },
     "server": {
-        "elasticEndpoint": "http://elasticsearch:9200"
+        "elasticEndpoint": "http://localhost:9200"
     }
 }

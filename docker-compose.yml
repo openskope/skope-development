@@ -21,6 +21,8 @@ services:
     volumes:
       - ./runtime-data/elasticsearch/data:/usr/share/elasticsearch/data
       - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - "9200:9200"
     networks:
       - openskope-dev
 networks:
