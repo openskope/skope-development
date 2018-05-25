@@ -1,0 +1,25 @@
+{
+  "name": "skope-development",
+  "version": "1.0.0",
+  "description": "The purpose of this repo is to have a single repo to checkout the entire platform for development, no matter which sub-system is being worked on.",
+  "main": "index.js",
+  "scripts": {
+    "load-es:from-staging:base": "elasticdump --input=https://app.openskope.org/es --input-index=datasets --output=http://localhost:9200 --output-index=datasets",
+    "load-es:from-staging:mapping": "npm run load-es:from-staging:base -- --type=mapping",
+    "load-es:from-staging:data": "npm run load-es:from-staging:base -- --type=data",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openskope/skope-development.git"
+  },
+  "author": "Xingchen Hong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openskope/skope-development/issues"
+  },
+  "homepage": "https://github.com/openskope/skope-development#readme",
+  "devDependencies": {
+    "elasticdump": "^3.3.14"
+  }
+}
