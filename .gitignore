@@ -1,3 +1,4 @@
 runtime-data
 configs/node_modules
 node_modules
+scripts/elasticsearch-source-data

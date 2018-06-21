@@ -26,6 +26,12 @@ const pointNearUsCenter = [
 
 const coordPrecision = 100000;
 
+// These layers don't cover the entire area.
+const overlayUrlOptions = [
+  'http://staging.openskope.org/geoserver/SKOPE/wms?layers=SKOPE:paleocar_1_PPTannual_{YYYY}0101',
+  'http://staging.openskope.org/geoserver/SKOPE/wms?layers=SKOPE:paleocar_1_GDD_{YYYY}0101',
+];
+
 const variableOptions = [
   faker.lorem.word(),
   faker.lorem.word(),
@@ -242,6 +248,8 @@ const getMockDataForProperty = (
       return faker.random.number(1000) + 100;
     case fullPropPath === 'overlays.type':
       return 'wms';
+    case fullPropPath === 'overlays.url':
+      return faker.random.arrayElement(overlayUrlOptions);
     case fullPropPath === 'overlays.styles':
       return [
         faker.lorem.word(),

@@ -4,9 +4,17 @@
   "description": "The purpose of this repo is to have a single repo to checkout the entire platform for development, no matter which sub-system is being worked on.",
   "main": "index.js",
   "scripts": {
-    "load-es:from-staging:base": "elasticdump --input=https://app.openskope.org/es --input-index=datasets --output=http://localhost:9200 --output-index=datasets",
-    "load-es:from-staging:mapping": "npm run load-es:from-staging:base -- --type=mapping",
-    "load-es:from-staging:data": "npm run load-es:from-staging:base -- --type=data",
+    "start": "bash run-meteor-app.sh",
+    "es:data:load-from-staging:base": "elasticdump --input=https://staging.openskope.org/es --input-index=datasets --output=http://localhost:9200 --output-index=datasets",
+    "es:data:load-from-staging:mapping": "npm run es:data:load-from-staging:base -- --type=mapping",
+    "es:data:load-from-staging:data": "npm run es:data:load-from-staging:base -- --type=data",
+    "es:data:reload-from-staging": "npm run es:data:drop-indices && npm run es:data:load-from-staging:mapping && es:data:load-from-staging:data",
+    "es:data:load-mock-data": "ts-node ./scripts/elasticsearch/loadIndices.ts",
+    "es:data:list-indices": "ts-node ./scripts/elasticsearch/listIndices.ts",
+    "es:data:drop-indices": "ts-node ./scripts/elasticsearch/deleteIndices.ts",
+    "es:data:generate-mock-data": "ts-node ./scripts/elasticsearch/generateMockData.ts",
+    "es:start": "docker-compose up -d elasticsearch",
+    "es:stop": "docker-compose stop elasticsearch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +28,19 @@
   },
   "homepage": "https://github.com/openskope/skope-development#readme",
   "devDependencies": {
-    "elasticdump": "^3.3.14"
+    "@types/elasticsearch": "^5.0.19",
+    "@types/faker": "^4.1.2",
+    "@types/fs-extra": "^5.0.0",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^9.4.0",
+    "elasticdump": "^3.3.14",
+    "elasticsearch": "^14.0.0",
+    "faker": "^4.1.0",
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
+    "moment": "^2.20.1",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2",
+    "uuid": "^3.2.1"
   }
 }
